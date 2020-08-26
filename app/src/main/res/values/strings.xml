@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">KaamKiBaat</string>
+    <string name="image">image</string>
+    <string name="website" />
+    <string name="home">Home</string>
+    <string name="politics">Politics</string>
+    <string name="news">news</string>
+    <string name="bio">bio</string>
+    <string name="video">video</string>
+    <string name="exit">exit</string>
+    <string name="categories">Categories</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="tech_news">Tech News</string>
+    <string name="biography">Biography</string>
+    <string name="videos">Videos</string>
+    <string name="pod_cast">Pod Cast</string>
+    <string name="latest">Latest</string>
+    <string name="follow_us">Follow Us</string>
+</resources>

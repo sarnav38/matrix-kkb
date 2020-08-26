@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/nav_enter"
+        android:icon="@drawable/ic_enterblack"
+        android:title="@string/entertainment" />
+    <item
+        android:id="@+id/nav_politics"
+        android:icon="@drawable/ic_homeicon"
+        android:title="@string/politics" />
+    <item
+        android:id="@+id/nav_news"
+        android:title="@string/tech_news"
+        android:icon="@drawable/ic_newblack"/>
+    <item
+        android:id="@+id/nav_bio"
+        android:title="@string/bio"
+        android:icon="@drawable/ic_bioblack"/>
+    <item
+        android:id="@+id/nav_vid"
+        android:title="@string/video"
+        android:icon="@drawable/ic_videoblack"/>
+    <item
+        android:id="@+id/nav_pod"
+        android:title="@string/pod_cast"
+        android:icon="@drawable/ic_audioblack"/>
+    <item
+        android:id="@+id/exit"
+        android:title="@string/exit"
+        android:icon="@drawable/icexitblack"/>
+
+</menu>

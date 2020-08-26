@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "975876471589",
+    "firebase_url": "https://kaam-ki-baat-app.firebaseio.com",
+    "project_id": "kaam-ki-baat-app",
+    "storage_bucket": "kaam-ki-baat-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975876471589:android:61bba4bcc1db038dd1b8cc",
+        "android_client_info": {
+          "package_name": "in.kaamkibaat.kaamkibaat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975876471589-cgu8p066cn5fbvd7a9ct770g12a5tvre.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.kaamkibaat.kaamkibaat",
+            "certificate_hash": "ec6424ec3faa270658044d6fcb312f3bb9d63905"
+          }
+        },
+        {
+          "client_id": "975876471589-eja7dtenk7uhfqd6arcs50af87t5gqcu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgVQ0-2VDgZwGj8l5sH-RUVT5qsujHrfw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975876471589-eja7dtenk7uhfqd6arcs50af87t5gqcu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
