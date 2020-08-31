@@ -16,4 +16,16 @@
     <string name="pod_cast">Pod Cast</string>
     <string name="latest">Latest</string>
     <string name="follow_us">Follow Us</string>
+    <string name="share">share</string>
+    <string name="drw_op">Drawer Open</string>
+    <string name="drw_cl">Drawer Close</string>
+    <string name="search">Search</string>
+    <string name="loading">Loading....</string>
+    <string name="ConDes">Description</string>
+    <string name="advertisement">advertisement</string>
+    <string name="title">title</string>
+    <string name="content">content</string>
+    <string name="catageory">catageory</string>
+    <string name="titletag">titletag</string>
+    <string name="welcome">Welcome</string>
 </resources>

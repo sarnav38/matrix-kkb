@@ -9,11 +9,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name=".latest.LatestActivity2"
+            android:theme="@style/AppTheme_1"/>
+        <activity
+            android:name=".search.SearchActivity2"
+            android:theme="@style/AppTheme_1" />
+        <activity
+            android:name=".search.SearchActivity"
+            android:theme="@style/AppTheme_1" />
+        <activity
+            android:name=".politics.PoliticsActivity2"
+            android:theme="@style/AppTheme_1" />
+        <activity android:name=".politics.PoliticsActivity" />
+        <activity
+            android:name=".bio.BioActivity2"
+            android:theme="@style/AppTheme_1" />
+        <activity android:name=".bio.BioActivity" />
+        <activity
+            android:name=".entertainment.EntertainmentActivity2"
+            android:theme="@style/AppTheme_1" />
+        <activity android:name=".entertainment.EntertainmentActivity" />
+        <activity
+            android:name=".news.NewsActivity2"
+            android:theme="@style/AppTheme_1" />
+        <activity android:name=".news.NewsActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".splash"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

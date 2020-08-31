@@ -1,10 +1,9 @@
-package in.kaamkibaat.kaamkibaat;
+package in.kaamkibaat.kaamkibaat.politics;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -27,22 +25,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import in.kaamkibaat.kaamkibaat.MainActivity;
+import in.kaamkibaat.kaamkibaat.R;
+import in.kaamkibaat.kaamkibaat.RecyclerDecoration;
 import in.kaamkibaat.kaamkibaat.bio.BioActivity;
 import in.kaamkibaat.kaamkibaat.entertainment.EntertainmentActivity;
-import in.kaamkibaat.kaamkibaat.latest.LatestActivity2;
 import in.kaamkibaat.kaamkibaat.member.Member;
 import in.kaamkibaat.kaamkibaat.news.NewsActivity;
-import in.kaamkibaat.kaamkibaat.politics.PoliticsActivity;
-import in.kaamkibaat.kaamkibaat.search.SearchActivity;
+import in.kaamkibaat.kaamkibaat.news.NewsActivity2;
 import in.kaamkibaat.kaamkibaat.viewholder.Viewholder;
 
-public class MainActivity extends AppCompatActivity {
+public class PoliticsActivity extends AppCompatActivity {
+
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    CardView btn_P,btn_N,btn_B,btn_V,btn_A,btn_E;
     ProgressDialog pd;
     NavigationView navigationView;
-    ImageView searchBtn;
-    RecyclerView.LayoutManager manager;
     RecyclerView mRecyclerView;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference reference;
@@ -51,32 +48,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-// ToolBar set
+        setContentView(R.layout.activity_politics);
+
+        // ToolBar set
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 // Progress dialog set
-        pd = new ProgressDialog(MainActivity.this);
+        pd = new ProgressDialog(PoliticsActivity.this);
         //Nav coding here
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout,R.string.drw_op,R.string.drw_cl);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(PoliticsActivity.this, drawerLayout,R.string.drw_op,R.string.drw_cl);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         navigationView = findViewById(R.id.navigation_view);
-// Linking with layout
-        btn_P =findViewById(R.id.btn_P);
-        btn_N =findViewById(R.id.btn_N);
-        btn_B =findViewById(R.id.btn_B);
-        btn_V =findViewById(R.id.btn_V);
-        btn_A =findViewById(R.id.btn_A);
-        btn_E =findViewById(R.id.btn_E);
-        // Search button
-        searchBtn = findViewById(R.id.searchBtn);
 
+        // firebase code
         mRecyclerView = findViewById(R.id.RV);
         mRecyclerView.setHasFixedSize(true);
-        manager = new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,true);
-        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         firebaseDatabase = FirebaseDatabase.getInstance();
         reference = firebaseDatabase.getReference("KKB");
         reference.keepSynced(true);
@@ -91,34 +81,34 @@ public class MainActivity extends AppCompatActivity {
     }
     public void UserMenuSelected(MenuItem item){
         if (item.getItemId() == R.id.nav_home){
-            Intent intent = new Intent(this,MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
         else if (item.getItemId() == R.id.nav_enter){
-            pd.show();
-            pd.setContentView(R.layout.pd_lo);
-            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//            pd.show();
+//            pd.setContentView(R.layout.pd_lo);
+//            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             Intent intent = new Intent(this, EntertainmentActivity.class);
             startActivity(intent);
         }
         else if (item.getItemId() == R.id.nav_politics){
-            pd.show();
-            pd.setContentView(R.layout.pd_lo);
-            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//            pd.show();
+//            pd.setContentView(R.layout.pd_lo);
+//            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             Intent intent =new Intent(this, PoliticsActivity.class);
             startActivity(intent);
         }
         else if (item.getItemId() == R.id.nav_news){
-            pd.show();
-            pd.setContentView(R.layout.pd_lo);
-            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            Intent intent = new Intent(this, NewsActivity.class);
+//            pd.show();
+//            pd.setContentView(R.layout.pd_lo);
+//            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            Intent intent = new Intent(this,NewsActivity.class);
             startActivity(intent);
         }
         else if (item.getItemId() == R.id.nav_bio){
-            pd.show();
-            pd.setContentView(R.layout.pd_lo);
-            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//            pd.show();
+//            pd.setContentView(R.layout.pd_lo);
+//            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             Intent intent = new Intent(this, BioActivity.class);
             startActivity(intent);
         }
@@ -126,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             Intent webIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://www.youtube.com/channel/UC3dzH7JgfIzm2na8QhIIscg"));
             try {
-                MainActivity.this.startActivity(webIntent);
+                PoliticsActivity.this.startActivity(webIntent);
             } catch (ActivityNotFoundException ignored) {
             }
         }
@@ -134,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             Intent webIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://www.youtube.com/channel/UC3dzH7JgfIzm2na8QhIIscg"));
             try {
-                MainActivity.this.startActivity(webIntent);
+                PoliticsActivity.this.startActivity(webIntent);
             } catch (ActivityNotFoundException ignored) {
             }
         }
@@ -162,61 +152,9 @@ public class MainActivity extends AppCompatActivity {
             UserMenuSelected(item);
             return false;
         });
-        btn_V.setOnClickListener(view -> {
-            Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://www.youtube.com/channel/UC3dzH7JgfIzm2na8QhIIscg"));
-            try {
-                MainActivity.this.startActivity(webIntent);
-            } catch (ActivityNotFoundException ignored) {
-            }
-        });
-        btn_A.setOnClickListener(view -> {
-            Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://www.youtube.com/channel/UC3dzH7JgfIzm2na8QhIIscg"));
-            try {
-                MainActivity.this.startActivity(webIntent);
-            } catch (ActivityNotFoundException ignored) {
-            }
-        });
-        // render to politics pages.
-        btn_P.setOnClickListener(view -> {
-            pd.show();
-            pd.setContentView(R.layout.pd_lo);
-            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            Intent Politics_page = new Intent(MainActivity.this, PoliticsActivity.class);
-            startActivity(Politics_page);
-        });
-        // render to News pages.
-        btn_N.setOnClickListener(view -> {
-            pd.show();
-            pd.setContentView(R.layout.pd_lo);
-            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            Intent News_page = new Intent(MainActivity.this, NewsActivity.class);
-            startActivity(News_page);
 
-        });
-        // render to Biography pages.
-        btn_B.setOnClickListener(view -> {
-            pd.show();
-            pd.setContentView(R.layout.pd_lo);
-            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            Intent Bio_page = new Intent(MainActivity.this, BioActivity.class);
-            startActivity(Bio_page);
-        });
-        btn_E.setOnClickListener(view -> {
-            pd.show();
-            pd.setContentView(R.layout.pd_lo);
-            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            Intent Ent_page = new Intent(MainActivity.this, EntertainmentActivity.class);
-            startActivity(Ent_page);
-        });
-
-        searchBtn.setOnClickListener(view -> {
-            Intent i = new Intent(MainActivity.this, SearchActivity.class);
-            startActivity(i);
-        });
-
-        Query firebaseQuery = firebaseDatabase.getReference("KKB").orderByChild("titleTag").limitToLast(2);
+        String p = "pol";
+        Query firebaseQuery = firebaseDatabase.getReference("KKB").orderByChild("cat").equalTo(p);
         FirebaseRecyclerOptions<Member> options =
                 new FirebaseRecyclerOptions.Builder<Member>()
                         .setQuery(firebaseQuery, Member.class)
@@ -229,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     protected void onBindViewHolder(@NonNull Viewholder viewHandler, int position, @NonNull Member member) {
-                        viewHandler.Lsetdetails(getApplication(), member.getTitle(), member.getContent(), member.getImage_url(),member.getCat(),member.getTitleTag());
+                        viewHandler.Psetdetails(getApplication(), member.getTitle(), member.getContent(), member.getImage_url(),member.getCat(),member.getTitleTag());
 
                         viewHandler.setOnClicklistener(new Viewholder.ClickListener() {
                             @Override
@@ -240,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                                 mtitleTag = getItem(position).getTitleTag();
                                 mimage = getItem(position).getImage_url();
 
-                                Intent intent = new Intent(MainActivity.this, LatestActivity2.class);
+                                Intent intent = new Intent(PoliticsActivity.this, PoliticsActivity2.class);
                                 intent.putExtra("title", mtitle);
                                 intent.putExtra("content", mcontent);
                                 intent.putExtra("cat", mcat);
@@ -257,17 +195,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                         View view = LayoutInflater.from(parent.getContext())
-                                .inflate(R.layout.latestitem, parent, false);
+                                .inflate(R.layout.politicsitem, parent, false);
                         return new Viewholder(view);
                     }
                 };
         firebaseRecyclerAdapter.startListening();
         mRecyclerView.setAdapter(firebaseRecyclerAdapter);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        pd.dismiss();
+        int sidePadding = getResources().getDimensionPixelSize(R.dimen.sidePadding);
+        int topPadding = getResources().getDimensionPixelSize(R.dimen.topPadding);
+        mRecyclerView.addItemDecoration(new RecyclerDecoration(sidePadding,topPadding));
     }
 }

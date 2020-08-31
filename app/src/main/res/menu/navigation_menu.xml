@@ -29,8 +29,11 @@
         android:title="@string/pod_cast"
         android:icon="@drawable/ic_audioblack"/>
     <item
+        android:id="@+id/nav_share"
+        android:title="@string/share"
+        android:icon="@drawable/ic_baseline_share_24"/>
+    <item
         android:id="@+id/exit"
         android:title="@string/exit"
         android:icon="@drawable/icexitblack"/>
-
 </menu>

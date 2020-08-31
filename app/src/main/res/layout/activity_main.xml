@@ -20,7 +20,28 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="@color/toolbar_color"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:navigationIcon="@drawable/ic_baseline_menu_24" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/searchBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="30dp"
+                    android:contentDescription="@string/ConDes"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_search_24"
+                    app:tint="@color/image_Bgd" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -41,40 +62,15 @@
                 app:layout_constraintStart_toStartOf="@+id/textView"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView2"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RV"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:fadeScrollbars="false"
-                android:isScrollContainer="false"
-                android:scrollbarAlwaysDrawHorizontalTrack="false"
-                android:scrollbarAlwaysDrawVerticalTrack="false"
-                android:scrollbarStyle="insideOverlay"
-                android:scrollbarThumbHorizontal="@drawable/colorbgd"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView7">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="400dp"
-                        android:layout_height="match_parent"
-                        app:cardBackgroundColor="@color/newBgd" />
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="400dp"
-                        android:layout_height="match_parent"
-                        app:cardBackgroundColor="@color/videoBgd" />
-                </LinearLayout>
-            </HorizontalScrollView>
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
             <TextView
                 android:id="@+id/textView"
@@ -88,7 +84,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.06"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2" />
+                app:layout_constraintTop_toBottomOf="@+id/RV" />
 
             <HorizontalScrollView
                 android:id="@+id/horizontalScrollView"
@@ -107,6 +103,7 @@
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_E"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_marginStart="10dp"
@@ -144,6 +141,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_P"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_marginStart="10dp"
@@ -181,6 +179,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_N"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_marginStart="10dp"
@@ -218,6 +217,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_B"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_marginStart="10dp"
@@ -255,6 +255,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_V"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_marginStart="10dp"
@@ -292,6 +293,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_A"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_marginStart="10dp"
