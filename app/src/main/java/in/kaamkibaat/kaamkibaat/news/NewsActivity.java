@@ -121,7 +121,7 @@ public class NewsActivity extends AppCompatActivity {
         }
         else if (item.getItemId() == R.id.nav_pod){
             Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://www.youtube.com/channel/UC3dzH7JgfIzm2na8QhIIscg"));
+                    Uri.parse("https://www.youtube.com/channel/UCXO9Pm-55cV34EShFbpsVQA"));
             try {
                 NewsActivity.this.startActivity(webIntent);
             } catch (ActivityNotFoundException ignored) {
