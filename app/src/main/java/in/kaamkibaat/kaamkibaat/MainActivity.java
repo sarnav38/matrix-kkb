@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +28,10 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.onesignal.OSNotificationOpenResult;
+import com.onesignal.OneSignal;
+
+import org.json.JSONObject;
 
 import in.kaamkibaat.kaamkibaat.bio.BioActivity;
 import in.kaamkibaat.kaamkibaat.entertainment.EntertainmentActivity;
@@ -80,6 +86,58 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         reference = firebaseDatabase.getReference("KKB");
         reference.keepSynced(true);
+
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .setNotificationOpenedHandler(new NotificationOpenedHandler(getApplicationContext()))
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
+    }
+    public class NotificationOpenedHandler implements OneSignal.NotificationOpenedHandler {
+
+        private final Context context;
+
+        public NotificationOpenedHandler(Context context) {
+            this.context = context;
+        }
+        @Override
+        public void notificationOpened(OSNotificationOpenResult result) {
+            JSONObject data = result.notification.payload.additionalData;
+            String message;
+            if (data != null) {
+                message = data.optString("message", null);
+                if (message != null && message.equals("pol")) {
+                    Log.i("OneSignal", "customkey set with value: " + message);
+                    Intent intent = new Intent(context, PoliticsActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                } else if (message != null && message.equals("news")) {
+                    Intent intent = new Intent(context, NewsActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                } else if (message != null && message.equals("bio")) {
+                    Intent intent = new Intent(context, BioActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+                else if (message != null && message.equals("ent")) {
+                    Intent intent = new Intent(context, EntertainmentActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+                else if (message != null && message.equals("video")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,  Uri.parse("https://www.youtube.com/channel/UC3dzH7JgfIzm2na8QhIIscg"));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+                else if (message != null && message.equals("pod")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,  Uri.parse("https://www.youtube.com/channel/UCXO9Pm-55cV34EShFbpsVQA"));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+
+            }
+        }
     }
 
     @Override
@@ -216,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        Query firebaseQuery = firebaseDatabase.getReference("KKB").orderByChild("titleTag").limitToLast(2);
+        Query firebaseQuery = firebaseDatabase.getReference("KKB").limitToFirst(2);
         FirebaseRecyclerOptions<Member> options =
                 new FirebaseRecyclerOptions.Builder<Member>()
                         .setQuery(firebaseQuery, Member.class)

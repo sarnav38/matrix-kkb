@@ -14,17 +14,17 @@ repositories {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "30.0.1"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "in.kaamkibaat.kaamkibaat"
         manifestPlaceholders = [
-                onesignal_app_id: 'e8f79f50-8811-4a32-b338-c851fcc6d3b4',
+                onesignal_app_id: 'e8ebb15a-509a-4cf0-8275-aa9dbf0a2d87',
                 onesignal_google_project_number: 'REMOTE'
         ]
         minSdkVersion 18
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -69,5 +69,6 @@ dependencies {
     def dynamicanimation_version = '1.0.0'
     implementation "androidx.dynamicanimation:dynamicanimation:$dynamicanimation_version"
     implementation 'com.onesignal:OneSignal:3.15.2'
+    implementation 'com.google.android.gms:play-services-ads:19.3.0'
 }
 apply plugin: 'com.google.gms.google-services'

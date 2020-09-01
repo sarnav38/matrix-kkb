@@ -8,6 +8,11 @@ import android.text.Html;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -22,6 +27,7 @@ public class BioActivity2 extends AppCompatActivity {
     TextView mcat;
     TextView mtitleTag;
     private String image;
+    AdView ad1,ad2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,5 +65,50 @@ public class BioActivity2 extends AppCompatActivity {
                 Picasso.get().load(image).into(mimage);
             }
         });
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+
+            }
+        });
+        ad1 = findViewById(R.id.adView);
+        ad2 = findViewById(R.id.adView2);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        ad1.loadAd(adRequest);
+        ad2.loadAd(adRequest);
+    }
+    @Override
+    protected void onPause() {
+        if(ad1 != null){
+            ad1.pause();
+        }
+        if(ad2 != null){
+            ad1.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        if(ad1 != null){
+            ad1.resume();
+        }
+        if(ad2 != null){
+            ad1.resume();
+        }
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(ad1 != null){
+            ad1.destroy();
+        }
+        if(ad2 != null){
+            ad1.destroy();
+        }
+        super.onDestroy();
     }
 }
