@@ -13,6 +13,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +21,10 @@ import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -32,6 +35,7 @@ import com.google.firebase.database.Query;
 
 import in.kaamkibaat.kaamkibaat.MainActivity;
 import in.kaamkibaat.kaamkibaat.R;
+import in.kaamkibaat.kaamkibaat.RecyclerDecoration;
 import in.kaamkibaat.kaamkibaat.entertainment.EntertainmentActivity;
 import in.kaamkibaat.kaamkibaat.member.Member;
 import in.kaamkibaat.kaamkibaat.news.NewsActivity;
@@ -49,6 +53,7 @@ public class BioActivity extends AppCompatActivity {
     DatabaseReference reference;
     String mtitle,mcontent,mimage,mcat,mtitleTag;
     AdView ad1,ad2;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,7 @@ public class BioActivity extends AppCompatActivity {
         // ToolBar set
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Kaam Ki Baat - Biography");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 // Progress dialog set
         pd = new ProgressDialog(BioActivity.this);
@@ -76,52 +82,22 @@ public class BioActivity extends AppCompatActivity {
         reference = firebaseDatabase.getReference("KKB");
         reference.keepSynced(true);
 
-//        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-//            @Override
-//            public void onInitializationComplete(InitializationStatus initializationStatus) {
-//
-//            }
-//        });
-//        ad1 = findViewById(R.id.adView);
-//        ad2 = findViewById(R.id.adView2);
-//
-//        AdRequest adRequest = new AdRequest.Builder().build();
-//        ad1.loadAd(adRequest);
-//        ad2.loadAd(adRequest);
-    }
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
 
-//    @Override
-//    protected void onPause() {
-//        if(ad1 != null){
-//            ad1.pause();
-//        }
-//        if(ad2 != null){
-//            ad1.pause();
-//        }
-//        super.onPause();
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        if(ad1 != null){
-//            ad1.resume();
-//        }
-//        if(ad2 != null){
-//            ad1.resume();
-//        }
-//        super.onResume();
-//    }
-//
-//    @Override
-//    protected void onDestroy() {
-//        if(ad1 != null){
-//            ad1.destroy();
-//        }
-//        if(ad2 != null){
-//            ad1.destroy();
-//        }
-//        super.onDestroy();
-//    }
+            }
+        });
+        ad1 = findViewById(R.id.adView);
+        ad2 = findViewById(R.id.adView2);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        ad1.loadAd(adRequest);
+        ad2.loadAd(adRequest);
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(adRequest);
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
@@ -136,30 +112,30 @@ public class BioActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else if (item.getItemId() == R.id.nav_enter){
-//            pd.show();
-//            pd.setContentView(R.layout.pd_lo);
-//            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            pd.show();
+            pd.setContentView(R.layout.pd_lo);
+            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             Intent intent = new Intent(this, EntertainmentActivity.class);
             startActivity(intent);
         }
         else if (item.getItemId() == R.id.nav_politics){
-//            pd.show();
-//            pd.setContentView(R.layout.pd_lo);
-//            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            pd.show();
+            pd.setContentView(R.layout.pd_lo);
+            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             Intent intent =new Intent(this, PoliticsActivity.class);
             startActivity(intent);
         }
         else if (item.getItemId() == R.id.nav_news){
-//            pd.show();
-//            pd.setContentView(R.layout.pd_lo);
-//            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            pd.show();
+            pd.setContentView(R.layout.pd_lo);
+            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             Intent intent = new Intent(this,NewsActivity.class);
             startActivity(intent);
         }
         else if (item.getItemId() == R.id.nav_bio){
-//            pd.show();
-//            pd.setContentView(R.layout.pd_lo);
-//            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            pd.show();
+            pd.setContentView(R.layout.pd_lo);
+            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             Intent intent = new Intent(this,BioActivity.class);
             startActivity(intent);
         }
@@ -189,7 +165,19 @@ public class BioActivity extends AppCompatActivity {
         }
 
         else if (item.getItemId() == R.id.exit){
-//            System.exit(1);
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+
+                mInterstitialAd.setAdListener(new AdListener() {
+                    @Override
+                    public void onAdClosed() {
+                        super.onAdClosed();
+                        finish();
+                    }
+                });
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.");
+            }
             this.finishAffinity();
         }
 
@@ -229,7 +217,7 @@ public class BioActivity extends AppCompatActivity {
                                 mtitleTag = getItem(position).getTitleTag();
                                 mimage = getItem(position).getImage_url();
 
-                                Intent intent = new Intent(BioActivity.this, NewsActivity2.class);
+                                Intent intent = new Intent(BioActivity.this, BioActivity2.class);
                                 intent.putExtra("title", mtitle);
                                 intent.putExtra("content", mcontent);
                                 intent.putExtra("cat", mcat);
@@ -252,6 +240,9 @@ public class BioActivity extends AppCompatActivity {
                 };
         firebaseRecyclerAdapter.startListening();
         mRecyclerView.setAdapter(firebaseRecyclerAdapter);
+        int sidePadding = getResources().getDimensionPixelSize(R.dimen.sidePadding);
+        int topPadding = getResources().getDimensionPixelSize(R.dimen.topPadding);
+        mRecyclerView.addItemDecoration(new RecyclerDecoration(sidePadding,topPadding));
     }
 
 }

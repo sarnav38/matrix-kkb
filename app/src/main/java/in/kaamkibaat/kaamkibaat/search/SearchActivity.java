@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import in.kaamkibaat.kaamkibaat.R;
+import in.kaamkibaat.kaamkibaat.RecyclerDecoration;
 import in.kaamkibaat.kaamkibaat.member.Member;
 import in.kaamkibaat.kaamkibaat.viewholder.Viewholder;
 
@@ -103,6 +104,9 @@ public class SearchActivity extends AppCompatActivity {
                 };
         firebaseRecyclerAdapter.startListening();
         mRecyclerView.setAdapter(firebaseRecyclerAdapter);
+        int sidePadding = getResources().getDimensionPixelSize(R.dimen.sidePadding);
+        int topPadding = getResources().getDimensionPixelSize(R.dimen.topPadding);
+        mRecyclerView.addItemDecoration(new RecyclerDecoration(sidePadding,topPadding));
     }
 
     @Override

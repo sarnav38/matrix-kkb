@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -28,6 +31,7 @@ public class BioActivity2 extends AppCompatActivity {
     TextView mtitleTag;
     private String image;
     AdView ad1,ad2;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +70,8 @@ public class BioActivity2 extends AppCompatActivity {
             }
         });
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
+        MobileAds.initialize(this, initializationStatus -> {
 
-            }
         });
         ad1 = findViewById(R.id.adView);
         ad2 = findViewById(R.id.adView2);
@@ -78,37 +79,30 @@ public class BioActivity2 extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         ad1.loadAd(adRequest);
         ad2.loadAd(adRequest);
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(adRequest);
     }
     @Override
-    protected void onPause() {
-        if(ad1 != null){
-            ad1.pause();
-        }
-        if(ad2 != null){
-            ad1.pause();
-        }
-        super.onPause();
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
+    @Override
+    public void onBackPressed() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
 
-    @Override
-    protected void onResume() {
-        if(ad1 != null){
-            ad1.resume();
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    super.onAdClosed();
+                    finish();
+                }
+            });
+        } else {
+            Log.d("TAG", "The interstitial wasn't loaded yet.");
         }
-        if(ad2 != null){
-            ad1.resume();
-        }
-        super.onResume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        if(ad1 != null){
-            ad1.destroy();
-        }
-        if(ad2 != null){
-            ad1.destroy();
-        }
-        super.onDestroy();
+        super.onBackPressed();
     }
 }

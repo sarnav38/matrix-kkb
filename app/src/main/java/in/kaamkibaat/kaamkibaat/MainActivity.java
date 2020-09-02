@@ -24,6 +24,13 @@ import android.widget.ImageView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -47,12 +54,14 @@ public class MainActivity extends AppCompatActivity {
     CardView btn_P,btn_N,btn_B,btn_V,btn_A,btn_E;
     ProgressDialog pd;
     NavigationView navigationView;
-    ImageView searchBtn;
+    ImageView searchBtn,fb,tw,it,k2b;
     RecyclerView.LayoutManager manager;
     RecyclerView mRecyclerView;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference reference;
     String mtitle,mcontent,mimage,mcat,mtitleTag;
+    AdView ad3,ad4;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
         btn_V =findViewById(R.id.btn_V);
         btn_A =findViewById(R.id.btn_A);
         btn_E =findViewById(R.id.btn_E);
+        fb =findViewById(R.id.imageView12);
+        tw =findViewById(R.id.imageView13);
+        it =findViewById(R.id.imageView14);
+        k2b =findViewById(R.id.imageView15);
         // Search button
         searchBtn = findViewById(R.id.searchBtn);
 
@@ -87,13 +100,32 @@ public class MainActivity extends AppCompatActivity {
         reference = firebaseDatabase.getReference("KKB");
         reference.keepSynced(true);
 
+        // add initiate
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+
+            }
+        });
+        ad3 = findViewById(R.id.adView3);
+        ad4 = findViewById(R.id.adView4);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        ad3.loadAd(adRequest);
+        ad4.loadAd(adRequest);
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(adRequest);
+
+
+        // notification
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .setNotificationOpenedHandler(new NotificationOpenedHandler(getApplicationContext()))
                 .unsubscribeWhenNotificationsAreDisabled(true)
                 .init();
     }
-    public class NotificationOpenedHandler implements OneSignal.NotificationOpenedHandler {
+    public static class NotificationOpenedHandler implements OneSignal.NotificationOpenedHandler {
 
         private final Context context;
 
@@ -206,7 +238,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         else if (item.getItemId() == R.id.exit){
-//            System.exit(1);
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+
+                mInterstitialAd.setAdListener(new AdListener() {
+                    @Override
+                    public void onAdClosed() {
+                        super.onAdClosed();
+                        finish();
+                    }
+                });
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.");
+            }
             this.finishAffinity();
         }
 
@@ -321,11 +365,63 @@ public class MainActivity extends AppCompatActivity {
                 };
         firebaseRecyclerAdapter.startListening();
         mRecyclerView.setAdapter(firebaseRecyclerAdapter);
+
+        fb.setOnClickListener(view -> {
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://www.facebook.com"));
+            try {
+                MainActivity.this.startActivity(webIntent);
+            } catch (ActivityNotFoundException ignored) {
+            }
+        });
+        tw.setOnClickListener(view -> {
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://www.twitter.com"));
+            try {
+                MainActivity.this.startActivity(webIntent);
+            } catch (ActivityNotFoundException ignored) {
+            }
+        });
+        it.setOnClickListener(view -> {
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://www.instagram.com"));
+            try {
+                MainActivity.this.startActivity(webIntent);
+            } catch (ActivityNotFoundException ignored) {
+            }
+        });
+        k2b.setOnClickListener(view -> {
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://kaamkibaat.in/"));
+            try {
+                MainActivity.this.startActivity(webIntent);
+            } catch (ActivityNotFoundException ignored) {
+            }
+        });
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         pd.dismiss();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    super.onAdClosed();
+                    finish();
+                }
+            });
+        } else {
+            Log.d("TAG", "The interstitial wasn't loaded yet.");
+        }
+        super.onBackPressed();
     }
 }

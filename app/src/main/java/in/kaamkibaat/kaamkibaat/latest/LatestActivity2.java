@@ -59,4 +59,9 @@ public class LatestActivity2 extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

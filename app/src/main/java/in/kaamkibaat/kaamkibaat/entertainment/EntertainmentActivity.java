@@ -13,6 +13,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,13 @@ import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -27,9 +35,12 @@ import com.google.firebase.database.Query;
 
 import in.kaamkibaat.kaamkibaat.MainActivity;
 import in.kaamkibaat.kaamkibaat.R;
+import in.kaamkibaat.kaamkibaat.RecyclerDecoration;
+import in.kaamkibaat.kaamkibaat.bio.BioActivity;
 import in.kaamkibaat.kaamkibaat.member.Member;
 import in.kaamkibaat.kaamkibaat.news.NewsActivity;
 import in.kaamkibaat.kaamkibaat.news.NewsActivity2;
+import in.kaamkibaat.kaamkibaat.politics.PoliticsActivity;
 import in.kaamkibaat.kaamkibaat.viewholder.Viewholder;
 
 public class EntertainmentActivity extends AppCompatActivity {
@@ -40,6 +51,8 @@ public class EntertainmentActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference reference;
     String mtitle,mcontent,mimage,mcat,mtitleTag;
+    AdView ad1,ad2;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +62,7 @@ public class EntertainmentActivity extends AppCompatActivity {
         // ToolBar set
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Kaam Ki Baat - Entertainment");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 // Progress dialog set
         pd = new ProgressDialog(EntertainmentActivity.this);
@@ -67,6 +81,18 @@ public class EntertainmentActivity extends AppCompatActivity {
         reference = firebaseDatabase.getReference("KKB");
         reference.keepSynced(true);
 
+        MobileAds.initialize(this, initializationStatus -> {
+
+        });
+        ad1 = findViewById(R.id.adView);
+        ad2 = findViewById(R.id.adView2);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        ad1.loadAd(adRequest);
+        ad2.loadAd(adRequest);
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(adRequest);
     }
 
     @Override
@@ -82,32 +108,32 @@ public class EntertainmentActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else if (item.getItemId() == R.id.nav_enter){
-//            pd.show();
-//            pd.setContentView(R.layout.pd_lo);
-//            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            pd.show();
+            pd.setContentView(R.layout.pd_lo);
+            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             Intent intent = new Intent(this,EntertainmentActivity.class);
             startActivity(intent);
         }
         else if (item.getItemId() == R.id.nav_politics){
-//            pd.show();
-//            pd.setContentView(R.layout.pd_lo);
-//            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-//            Intent intent =intent new Intent(this,PoliticsActivity.class);
-//            startActivity(intent)intent;
+            pd.show();
+            pd.setContentView(R.layout.pd_lo);
+            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            Intent intent =new Intent(this, PoliticsActivity.class);
+            startActivity(intent);
         }
         else if (item.getItemId() == R.id.nav_news){
-//            pd.show();
-//            pd.setContentView(R.layout.pd_lo);
-//            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            pd.show();
+            pd.setContentView(R.layout.pd_lo);
+            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             Intent intent = new Intent(this,NewsActivity.class);
             startActivity(intent);
         }
         else if (item.getItemId() == R.id.nav_bio){
-//            pd.show();
-//            pd.setContentView(R.layout.pd_lo);
-//            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-//            Intent intent = new Intent(this,Biography.class);
-//            startActivity(intent);
+            pd.show();
+            pd.setContentView(R.layout.pd_lo);
+            pd.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            Intent intent = new Intent(this, BioActivity.class);
+            startActivity(intent);
         }
         else if (item.getItemId() == R.id.nav_vid){
             Intent webIntent = new Intent(Intent.ACTION_VIEW,
@@ -135,7 +161,19 @@ public class EntertainmentActivity extends AppCompatActivity {
         }
 
         else if (item.getItemId() == R.id.exit){
-//            System.exit(1);
+             if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+
+                mInterstitialAd.setAdListener(new AdListener() {
+                    @Override
+                    public void onAdClosed() {
+                        super.onAdClosed();
+                        finish();
+                    }
+                });
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.");
+            }
             this.finishAffinity();
         }
 
@@ -198,6 +236,9 @@ public class EntertainmentActivity extends AppCompatActivity {
                 };
         firebaseRecyclerAdapter.startListening();
         mRecyclerView.setAdapter(firebaseRecyclerAdapter);
+        int sidePadding = getResources().getDimensionPixelSize(R.dimen.sidePadding);
+        int topPadding = getResources().getDimensionPixelSize(R.dimen.topPadding);
+        mRecyclerView.addItemDecoration(new RecyclerDecoration(sidePadding,topPadding));
     }
 
 }

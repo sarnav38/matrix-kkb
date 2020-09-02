@@ -5,12 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+import com.google.android.gms.ads.InterstitialAd;
 
 import in.kaamkibaat.kaamkibaat.R;
 
@@ -22,6 +29,8 @@ public class EntertainmentActivity2 extends AppCompatActivity {
     TextView mcat;
     TextView mtitleTag;
     private String image;
+    private InterstitialAd mInterstitialAd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +70,36 @@ public class EntertainmentActivity2 extends AppCompatActivity {
             }
         });
 
+        MobileAds.initialize(this, initializationStatus -> {
+        });
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(adRequest);
+    }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
+    @Override
+    public void onBackPressed() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    super.onAdClosed();
+                    finish();
+                }
+            });
+        } else {
+            Log.d("TAG", "The interstitial wasn't loaded yet.");
+        }
+        super.onBackPressed();
     }
 }
+
