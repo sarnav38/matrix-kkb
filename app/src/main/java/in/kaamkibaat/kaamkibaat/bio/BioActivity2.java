@@ -71,7 +71,6 @@ public class BioActivity2 extends AppCompatActivity {
         });
 
         MobileAds.initialize(this, initializationStatus -> {
-
         });
         ad1 = findViewById(R.id.adView);
         ad2 = findViewById(R.id.adView2);
