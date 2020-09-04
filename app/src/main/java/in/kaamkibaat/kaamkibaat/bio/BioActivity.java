@@ -164,23 +164,6 @@ public class BioActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        else if (item.getItemId() == R.id.exit){
-            if (mInterstitialAd.isLoaded()) {
-                mInterstitialAd.show();
-
-                mInterstitialAd.setAdListener(new AdListener() {
-                    @Override
-                    public void onAdClosed() {
-                        super.onAdClosed();
-                        finish();
-                    }
-                });
-            } else {
-                Log.d("TAG", "The interstitial wasn't loaded yet.");
-            }
-            this.finishAffinity();
-        }
-
     }
 
     @Override
@@ -209,6 +192,7 @@ public class BioActivity extends AppCompatActivity {
                         viewHandler.Bsetdetails(getApplication(), member.getTitle(), member.getContent(), member.getImage_url(),member.getCat(),member.getTitleTag());
 
                         viewHandler.setOnClicklistener(new Viewholder.ClickListener() {
+
                             @Override
                             public void onItemclick(View view, int position) {
                                 mtitle = getItem(position).getTitle();

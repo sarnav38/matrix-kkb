@@ -35,7 +35,7 @@
             android:paddingEnd="1dp"
             android:paddingBottom="1dp"
             android:text="@string/title"
-            android:textSize="24sp"
+            android:textSize="26sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView_L"
             app:layout_constraintTop_toTopOf="parent" />

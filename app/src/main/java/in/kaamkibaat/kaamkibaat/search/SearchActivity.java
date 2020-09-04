@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -33,6 +35,7 @@ public class SearchActivity extends AppCompatActivity {
     DatabaseReference reference;
     String mtitle,mcontent,mimage,mcat,mtitleTag;
     SearchView searchView;
+    AdView ad1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,10 @@ public class SearchActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         reference = firebaseDatabase.getReference("KKB");
         reference.keepSynced(true);
+
+        ad1 = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        ad1.loadAd(adRequest);
     }
 
     private void firebaseSearch(String searchtext) {
@@ -130,8 +137,6 @@ public class SearchActivity extends AppCompatActivity {
         });
         return super.onCreateOptionsMenu(menu);
     }
-
-
 
     @Override
     public boolean onSupportNavigateUp() {

@@ -31,7 +31,6 @@ public class BioActivity2 extends AppCompatActivity {
     TextView mtitleTag;
     private String image;
     AdView ad1,ad2;
-    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,30 +77,17 @@ public class BioActivity2 extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         ad1.loadAd(adRequest);
         ad2.loadAd(adRequest);
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        mInterstitialAd.loadAd(adRequest);
     }
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
-    @Override
-    public void onBackPressed() {
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
 
-            mInterstitialAd.setAdListener(new AdListener() {
-                @Override
-                public void onAdClosed() {
-                    super.onAdClosed();
-                    finish();
-                }
-            });
-        } else {
-            Log.d("TAG", "The interstitial wasn't loaded yet.");
-        }
-        super.onBackPressed();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        Intent intent = new Intent(BioActivity2.this,BioActivity.class);
+//        startActivity(intent);
+//    }
 }

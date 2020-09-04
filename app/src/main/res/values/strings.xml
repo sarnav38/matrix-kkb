@@ -4,10 +4,10 @@
     <string name="website" />
     <string name="home">Home</string>
     <string name="politics">Politics</string>
-    <string name="news">news</string>
-    <string name="bio">bio</string>
-    <string name="video">video</string>
-    <string name="exit">exit</string>
+    <string name="news">News</string>
+    <string name="bio">Biography</string>
+    <string name="video">Video</string>
+    <string name="exit">Exit</string>
     <string name="categories">Categories</string>
     <string name="entertainment">Entertainment</string>
     <string name="tech_news">Tech News</string>
@@ -16,7 +16,7 @@
     <string name="pod_cast">Pod Cast</string>
     <string name="latest">Latest</string>
     <string name="follow_us">Follow Us</string>
-    <string name="share">share</string>
+    <string name="share">Share</string>
     <string name="drw_op">Drawer Open</string>
     <string name="drw_cl">Drawer Close</string>
     <string name="search">Search</string>
@@ -27,6 +27,7 @@
     <string name="content">content</string>
     <string name="catageory">catageory</string>
     <string name="titletag">titletag</string>
-    <string name="welcome">Welcome</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="kaam_ki_baat">KAAM KI BAAT</string>
+    <string name="swagat">स्वागत हैं आपका</string>
 </resources>

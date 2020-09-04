@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="5dp"
     android:visibility="visible"
     app:cardCornerRadius="10dp">
 
@@ -13,7 +12,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView_L"
+            android:id="@+id/imageView_S"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/ConDes"
@@ -24,7 +23,7 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/textView_L_2"
+            android:id="@+id/textView_S_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -35,39 +34,39 @@
             android:paddingEnd="1dp"
             android:paddingBottom="1dp"
             android:text="@string/title"
-            android:textSize="24sp"
+            android:textSize="26sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView_L"
+            app:layout_constraintStart_toEndOf="@+id/imageView_S"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView_L_3"
+            android:id="@+id/textView_S_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/content"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView_L"
-            app:layout_constraintTop_toBottomOf="@+id/textView_L_2" />
+            app:layout_constraintStart_toEndOf="@+id/imageView_S"
+            app:layout_constraintTop_toBottomOf="@+id/textView_S_2" />
 
         <TextView
-            android:id="@+id/textView_L_4"
+            android:id="@+id/textView_S_4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/catageory"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView_L"
-            app:layout_constraintTop_toBottomOf="@+id/textView_L_3" />
+            app:layout_constraintStart_toEndOf="@+id/imageView_S"
+            app:layout_constraintTop_toBottomOf="@+id/textView_S_3" />
 
         <TextView
-            android:id="@+id/textView_L_5"
+            android:id="@+id/textView_S_5"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/titletag"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView_L"
-            app:layout_constraintTop_toBottomOf="@+id/textView_L_3" />
+            app:layout_constraintStart_toEndOf="@+id/imageView_S"
+            app:layout_constraintTop_toBottomOf="@+id/textView_S_3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

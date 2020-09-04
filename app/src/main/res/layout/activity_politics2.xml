@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,11 +20,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView_P_A2_A1"
-                android:layout_width="match_parent"
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/advertisement" />
+                android:layout_gravity="center_horizontal"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/banner_ad_unit_id" />
 
             <ImageView
                 android:id="@+id/imageView_P_A2_1"
@@ -34,6 +37,7 @@
                 android:layout_marginEnd="2dp"
                 android:layout_marginBottom="2dp"
                 android:contentDescription="@string/ConDes"
+                android:scaleType="fitXY"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
@@ -44,7 +48,8 @@
                 android:layout_marginEnd="2dp"
                 android:layout_marginBottom="2dp"
                 android:contentDescription="@string/content"
-                android:text="@string/title" />
+                android:text="@string/title"
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/textView_P_A2_2"
@@ -54,7 +59,8 @@
                 android:layout_marginEnd="12dp"
                 android:layout_marginBottom="2dp"
                 android:contentDescription="@string/ConDes"
-                android:text="@string/content" />
+                android:text="@string/content"
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/textView_P_A2_3"
@@ -76,11 +82,13 @@
                 android:visibility="gone"
                 android:text="@string/titletag" />
 
-            <TextView
-                android:id="@+id/textView_P_A2_A2"
-                android:layout_width="match_parent"
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/advertisement" />
+                android:layout_gravity="center_horizontal"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/banner_ad_unit_id" />
 
         </LinearLayout>
     </ScrollView>

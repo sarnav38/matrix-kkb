@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -20,6 +21,8 @@ import com.squareup.picasso.Picasso;
 import com.google.android.gms.ads.InterstitialAd;
 
 import in.kaamkibaat.kaamkibaat.R;
+import in.kaamkibaat.kaamkibaat.bio.BioActivity;
+import in.kaamkibaat.kaamkibaat.bio.BioActivity2;
 
 public class EntertainmentActivity2 extends AppCompatActivity {
 
@@ -30,6 +33,7 @@ public class EntertainmentActivity2 extends AppCompatActivity {
     TextView mtitleTag;
     private String image;
     private InterstitialAd mInterstitialAd;
+    AdView ad1,ad2;
 
 
     @Override
@@ -52,7 +56,7 @@ public class EntertainmentActivity2 extends AppCompatActivity {
         String content = intent.getExtras().getString("content");
         String cat = intent.getExtras().getString("cat");
         String titleTag = intent.getExtras().getString("titleTag");
-        image =intent.getExtras().getString("image");
+        image = intent.getExtras().getString("image");
 
         mtitle.setText(Html.fromHtml(title));
         mcontent.setText(Html.fromHtml(content));
@@ -69,13 +73,14 @@ public class EntertainmentActivity2 extends AppCompatActivity {
                 Picasso.get().load(image).into(mimage);
             }
         });
-
         MobileAds.initialize(this, initializationStatus -> {
         });
+        ad1 = findViewById(R.id.adView);
+        ad2 = findViewById(R.id.adView2);
+
         AdRequest adRequest = new AdRequest.Builder().build();
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        mInterstitialAd.loadAd(adRequest);
+        ad1.loadAd(adRequest);
+        ad2.loadAd(adRequest);
     }
 
     @Override
@@ -83,23 +88,11 @@ public class EntertainmentActivity2 extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-
-    @Override
-    public void onBackPressed() {
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-
-            mInterstitialAd.setAdListener(new AdListener() {
-                @Override
-                public void onAdClosed() {
-                    super.onAdClosed();
-                    finish();
-                }
-            });
-        } else {
-            Log.d("TAG", "The interstitial wasn't loaded yet.");
-        }
-        super.onBackPressed();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        Intent intent = new Intent(EntertainmentActivity2.this, EntertainmentActivity.class);
+//        startActivity(intent);
+//    }
 }
 

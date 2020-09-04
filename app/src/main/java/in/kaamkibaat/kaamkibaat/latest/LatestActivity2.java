@@ -8,11 +8,17 @@ import android.text.Html;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import in.kaamkibaat.kaamkibaat.MainActivity;
 import in.kaamkibaat.kaamkibaat.R;
+import in.kaamkibaat.kaamkibaat.bio.BioActivity;
+import in.kaamkibaat.kaamkibaat.bio.BioActivity2;
 
 public class LatestActivity2 extends AppCompatActivity {
 
@@ -22,6 +28,7 @@ public class LatestActivity2 extends AppCompatActivity {
     TextView mcat;
     TextView mtitleTag;
     private String image;
+    AdView ad1,ad2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +65,26 @@ public class LatestActivity2 extends AppCompatActivity {
                 Picasso.get().load(image).into(mimage);
             }
         });
+
+        MobileAds.initialize(this, initializationStatus -> {
+        });
+        ad1 = findViewById(R.id.adView);
+        ad2 = findViewById(R.id.adView2);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        ad1.loadAd(adRequest);
+        ad2.loadAd(adRequest);
     }
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(LatestActivity2.this, MainActivity.class);
+        startActivity(intent);
+    }
+
 }

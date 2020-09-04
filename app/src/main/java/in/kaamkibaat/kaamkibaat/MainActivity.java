@@ -253,7 +253,6 @@ public class MainActivity extends AppCompatActivity {
             }
             this.finishAffinity();
         }
-
     }
 
     @Override
@@ -341,14 +340,26 @@ public class MainActivity extends AppCompatActivity {
                                 mcat = getItem(position).getCat();
                                 mtitleTag = getItem(position).getTitleTag();
                                 mimage = getItem(position).getImage_url();
-
                                 Intent intent = new Intent(MainActivity.this, LatestActivity2.class);
                                 intent.putExtra("title", mtitle);
                                 intent.putExtra("content", mcontent);
                                 intent.putExtra("cat", mcat);
                                 intent.putExtra("titleTag", mtitleTag);
                                 intent.putExtra("image", mimage);
-                                startActivity(intent);
+                                if (mInterstitialAd.isLoaded()) {
+                                    mInterstitialAd.show();
+
+                                    mInterstitialAd.setAdListener(new AdListener() {
+                                        @Override
+                                        public void onAdClosed() {
+                                            super.onAdClosed();
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
+                                } else {
+                                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                                }
                             }
                             @Override
                             public void onItemLongclick(View view, int position) {
@@ -368,7 +379,7 @@ public class MainActivity extends AppCompatActivity {
 
         fb.setOnClickListener(view -> {
             Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://www.facebook.com"));
+                    Uri.parse("https://www.facebook.com/kaamkibaat1408"));
             try {
                 MainActivity.this.startActivity(webIntent);
             } catch (ActivityNotFoundException ignored) {
@@ -376,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
         });
         tw.setOnClickListener(view -> {
             Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://www.twitter.com"));
+                    Uri.parse("https://twitter.com/1408ANAND"));
             try {
                 MainActivity.this.startActivity(webIntent);
             } catch (ActivityNotFoundException ignored) {
@@ -384,7 +395,7 @@ public class MainActivity extends AppCompatActivity {
         });
         it.setOnClickListener(view -> {
             Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://www.instagram.com"));
+                    Uri.parse("https://www.instagram.com/KAAMKIBAAT1408/"));
             try {
                 MainActivity.this.startActivity(webIntent);
             } catch (ActivityNotFoundException ignored) {
@@ -399,16 +410,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     protected void onStop() {
         super.onStop();
         pd.dismiss();
     }
-
     @Override
     public void onBackPressed() {
-//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        super.onBackPressed();
         if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
 
@@ -422,6 +431,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.d("TAG", "The interstitial wasn't loaded yet.");
         }
-        super.onBackPressed();
+
     }
 }

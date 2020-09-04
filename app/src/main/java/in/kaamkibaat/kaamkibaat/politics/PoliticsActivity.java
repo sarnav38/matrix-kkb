@@ -37,6 +37,7 @@ import in.kaamkibaat.kaamkibaat.MainActivity;
 import in.kaamkibaat.kaamkibaat.R;
 import in.kaamkibaat.kaamkibaat.RecyclerDecoration;
 import in.kaamkibaat.kaamkibaat.bio.BioActivity;
+import in.kaamkibaat.kaamkibaat.bio.BioActivity2;
 import in.kaamkibaat.kaamkibaat.entertainment.EntertainmentActivity;
 import in.kaamkibaat.kaamkibaat.member.Member;
 import in.kaamkibaat.kaamkibaat.news.NewsActivity;
@@ -160,23 +161,6 @@ public class PoliticsActivity extends AppCompatActivity {
             startActivity(Intent.createChooser(intent,"share via"));
             startActivity(intent);
         }
-
-        else if (item.getItemId() == R.id.exit){
-            if (mInterstitialAd.isLoaded()) {
-                mInterstitialAd.show();
-
-                mInterstitialAd.setAdListener(new AdListener() {
-                    @Override
-                    public void onAdClosed() {
-                        super.onAdClosed();
-                       finish();
-                    }
-                });
-            } else {
-                Log.d("TAG", "The interstitial wasn't loaded yet.");
-            }
-            this.finishAffinity();
-        }
     }
 
     @Override
@@ -212,7 +196,6 @@ public class PoliticsActivity extends AppCompatActivity {
                                 mcat = getItem(position).getCat();
                                 mtitleTag = getItem(position).getTitleTag();
                                 mimage = getItem(position).getImage_url();
-
                                 Intent intent = new Intent(PoliticsActivity.this, PoliticsActivity2.class);
                                 intent.putExtra("title", mtitle);
                                 intent.putExtra("content", mcontent);
@@ -220,6 +203,7 @@ public class PoliticsActivity extends AppCompatActivity {
                                 intent.putExtra("titleTag", mtitleTag);
                                 intent.putExtra("image", mimage);
                                 startActivity(intent);
+
                             }
                             @Override
                             public void onItemLongclick(View view, int position) {

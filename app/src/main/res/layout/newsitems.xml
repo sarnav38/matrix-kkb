@@ -14,8 +14,9 @@
         <ImageView
             android:id="@+id/imageView_N"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:scaleType="fitXY"
             android:contentDescription="@string/ConDes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

@@ -37,7 +37,7 @@ public class splash extends AppCompatActivity {
 //        View t = findViewById(R.id.textView);
 //        Spring(im,400f);
 //        Spring(t,-440f);
-        img = findViewById(R.id.imageView);
+        img = findViewById(R.id.imageView7);
         txt = findViewById(R.id.textView);
 
         img_anim = AnimationUtils.loadAnimation(this,R.anim.img_anim);

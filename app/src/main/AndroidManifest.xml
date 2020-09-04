@@ -3,6 +3,7 @@
     package="in.kaamkibaat.kaamkibaat">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
 
     <application
@@ -24,23 +25,28 @@
             android:theme="@style/AppTheme_1" />
         <activity
             android:name=".search.SearchActivity"
-            android:theme="@style/AppTheme_1" />
+            android:theme="@style/AppTheme_1"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".politics.PoliticsActivity2"
             android:theme="@style/AppTheme_1" />
-        <activity android:name=".politics.PoliticsActivity" />
+        <activity android:name=".politics.PoliticsActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".bio.BioActivity2"
             android:theme="@style/AppTheme_1" />
-        <activity android:name=".bio.BioActivity" />
+        <activity android:name=".bio.BioActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".entertainment.EntertainmentActivity2"
             android:theme="@style/AppTheme_1" />
-        <activity android:name=".entertainment.EntertainmentActivity" />
+        <activity android:name=".entertainment.EntertainmentActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".news.NewsActivity2"
             android:theme="@style/AppTheme_1" />
-        <activity android:name=".news.NewsActivity" />
+        <activity android:name=".news.NewsActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"/>

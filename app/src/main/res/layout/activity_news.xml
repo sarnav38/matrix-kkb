@@ -34,7 +34,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                ads:adSize ="LARGE_BANNER"
+                ads:adSize ="BANNER"
                 ads:adUnitId ="@string/banner_ad_unit_id" />
 
             <com.google.android.gms.ads.AdView
@@ -45,7 +45,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                ads:adSize ="LARGE_BANNER"
+                ads:adSize ="BANNER"
                 ads:adUnitId ="@string/banner_ad_unit_id"/>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -65,7 +65,7 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
-        app:menu="@menu/navigation_menu"
+        app:menu="@menu/navigation_menu_2"
         app:headerLayout="@layout/navigation_header"
         android:layout_gravity="start"
         android:layout_width="wrap_content"
